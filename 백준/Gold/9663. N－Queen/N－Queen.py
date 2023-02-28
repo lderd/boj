@@ -1,36 +1,31 @@
-def solve(a, b, checked):
+def solve(cnt):
     global answer
-    for di, dj in d:
-        ci, cj = a + di, b + dj
-        while 0 <= ci < n and 0 <= cj < n:
-            if (ci, cj) in checked:
-                return
-            ci += di
-            cj += dj
-    if sum(col) >= n:
+    if cnt >= n:
         answer += 1
         return
-    for j in range(n):
-        if col[j] == 0:
-            col[j] = 1
-            solve(a+1, j, checked | {(a+1, j)})
-            col[j] = 0
+    for i in range(n):
+        if col[i] == 0:
+            if checked[i+n-cnt][0]:
+                continue
+            if checked[i+n+cnt][1]:
+                continue
+            col[i] = 1
+            checked[i+n-cnt][0] = 1
+            checked[i+n+cnt][1] = 1
+
+            solve(cnt+1)
+
+            col[i] = 0
+            checked[i+n-cnt][0] = 0
+            checked[i+n+cnt][1] = 0
 
 
 n = int(input())
 answer = 0
-d = [(-1, 1), (-1, -1)]
-for j in range(n//2):
-    check = set()
-    check.add((0, j))
+for i in range(n):
     col = [0] * n
-    col[j] = 1
-    solve(0, j, check)
-answer *= 2
-if n % 2:
-    check = set()
-    check.add((0, n//2))
-    col = [0] * n
-    col[n//2] = 1
-    solve(0, n//2, check)
+    checked = [[0, 0] for _ in range(n*3)]
+    checked[i+n] = [1, 1]
+    col[i] = 1
+    solve(1)
 print(answer)
