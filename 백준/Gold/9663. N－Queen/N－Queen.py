@@ -22,10 +22,17 @@ def solve(cnt):
 
 n = int(input())
 answer = 0
-for i in range(n):
+for i in range(n//2):
     col = [0] * n
     checked = [[0, 0] for _ in range(n*3)]
     checked[i+n] = [1, 1]
     col[i] = 1
+    solve(1)
+answer *= 2
+if n % 2:
+    col = [0] * n
+    checked = [[0, 0] for _ in range(n*3)]
+    checked[n//2+n] = [1, 1]
+    col[n//2] = 1
     solve(1)
 print(answer)
