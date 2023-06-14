@@ -1,3 +1,5 @@
+import sys
+input = sys.stdin.readline
 n, c = map(int, input().split())
 m = int(input())
 boxes = [list(map(int, input().split())) for _ in range(m)]
