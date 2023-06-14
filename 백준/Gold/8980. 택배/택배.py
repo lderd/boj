@@ -2,11 +2,10 @@ import sys
 input = sys.stdin.readline
 n, c = map(int, input().split())
 m = int(input())
-boxes = [list(map(int, input().split())) for _ in range(m)]
 up = [0] * (n + 1)
 down = [0] * (n + 1)
 for i in range(m):
-    s, e, box = boxes[i]
+    s, e, box = map(int, input().split())
     up[s] += box
     down[e] += box
 answer = 0
