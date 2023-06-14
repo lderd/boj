@@ -2,25 +2,26 @@ import sys
 input = sys.stdin.readline
 n, c = map(int, input().split())
 m = int(input())
-up = [0] * (n + 1)
-down = [0] * (n + 1)
+boxes = [[0] * 2 for _ in range(n)]
 for i in range(m):
     s, e, box = map(int, input().split())
-    up[s] += box
-    down[e] += box
+    boxes[s - 1][0] += box
+    boxes[e - 1][1] += box
 answer = 0
 now = 0
-for i in range(n + 1):
-    if now >= down[i]:
-        now -= down[i]
-        answer += down[i]
-    else:
-        if now > 0:
-            answer += now
-            now = 0
-    if now + up[i] <= c:
-        now += up[i]
-    else:
-        if now < c:
+for i in range(n):
+    up, down = boxes[i]
+    if down:
+        if now >= down:
+            now -= down
+            answer += down
+        else:
+            if now > 0:
+                answer += now
+                now = 0
+    if up and now < c:
+        if now + up <= c:
+            now += up
+        else:
             now = c
 print(answer)
