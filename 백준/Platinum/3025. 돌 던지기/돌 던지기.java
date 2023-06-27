@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
     static int R, C;
     static String[][] board;
-    static Stack[] checked;
+    static Stack<int[]>[] checked;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer stRC = new StringTokenizer(br.readLine());
@@ -19,7 +19,7 @@ public class Main {
             }
         }
         for (int i = 0; i < C; i++) {
-            checked[i] = new Stack<Integer[]>();
+            checked[i] = new Stack<>();
         }
         int N = Integer.parseInt(br.readLine());
         for (int i = 0; i < N; i++) {
@@ -41,7 +41,7 @@ public class Main {
     }
     static int[] rootCheck(int start) {
         while (true) {
-            int[] now = (int[]) checked[start].pop();
+            int[] now = checked[start].pop();
             if (Objects.equals(board[now[0]][now[1]], ".")) {
                 return now;
             }
