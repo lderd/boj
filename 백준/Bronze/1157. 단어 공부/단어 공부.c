@@ -7,27 +7,27 @@ int main()
     int count[26] = {0,};
     char word[1000001];
     scanf("%s", word);
-    int cnt = -1;
-    char ans = '?';
     int l = strlen(word);
     for (int i = 0; i < l; i++)
     {
-        int idx;
         if (word[i] >= 'a') 
         {
-            idx = word[i] - 'a';
+            count[word[i] - 'a'] += 1;
         } else 
         {
-            idx = word[i] - 'A';
+            count[word[i] - 'A'] += 1;
         }
-        count[idx] += 1;
-
-        if (count[idx] > cnt)
+    }
+    int cnt = -1;
+    char ans = '?';
+    for (int i = 0; i < 26; i++)
+    {
+        if (count[i] > cnt)
         {
-            cnt = count[idx];
-            ans = alpha[idx];
+            cnt = count[i];
+            ans = alpha[i];
         }
-        else if (count[idx] == cnt)
+        else if (count[i] == cnt)
         {
             ans = '?';
         }
