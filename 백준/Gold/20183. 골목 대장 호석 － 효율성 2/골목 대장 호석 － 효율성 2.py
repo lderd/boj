@@ -15,7 +15,7 @@ for e, d in road[a]:
     if d <= c:
         heappush(q, (d, d, e))
 # [max_d, sum_d]
-dist = [11111111] * n
+dist = [1111111111] * n
 dist[a] = 0
 answer = -1
 while q:
