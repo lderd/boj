@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 def init(start, end, index):
     if start == end:
         tree[index] = [arr[start], arr[start]]
