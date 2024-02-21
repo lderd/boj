@@ -1,21 +1,23 @@
+import sys
+input = sys.stdin.readline
 n = int(input())
 m = int(input())
-arr = [[9876543210] * n for _ in range(n)]
+arr = [[0] * n for _ in range(n)]
 for _ in range(m):
-    a, b, c = map(int, input().split())
-    arr[a-1][b-1] = min(arr[a-1][b-1], c)
+    i, j, c = map(int, input().split())
+    if arr[i-1][j-1]:
+        arr[i-1][j-1] = min(arr[i-1][j-1], c)
+    else:
+        arr[i-1][j-1] = c
+
+for k in range(n):
+    for i in range(n):
+        for j in range(n):
+            if i == j: continue
+            if arr[i][k] and arr[k][j]:
+                if arr[i][j]:
+                    arr[i][j] = min(arr[i][k] + arr[k][j], arr[i][j])
+                else:
+                    arr[i][j] = arr[i][k] + arr[k][j]
 for i in range(n):
-    arr[i][i] = 0
-for i in range(n):
-    for j in range(n):
-        if i != j:
-            for k in range(n):
-                if i != k:
-                    arr[j][k] = min(arr[j][k], arr[j][i] + arr[i][k])
-for i in range(n):
-    for j in range(n):
-        if arr[i][j] >= 9876543210:
-            print(0, end=' ')
-        else:
-            print(arr[i][j], end=' ')
-    print()
+    print(*arr[i])
