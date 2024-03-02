@@ -26,8 +26,9 @@ for _ in range(m):
     heappush(q, (c, a-1, b-1))
 
 answer = 0
-while q and l > 2:
+while m and l > 2:
     c, a, b = heappop(q)
+    m -= 1
     pa = find(a)
     pb = find(b)
     if pa != pb:
