@@ -18,7 +18,7 @@ def find(a):
 
 n, m = map(int, input().split())
 p = list(range(n))
-city = set(range(n))
+l = n
 q = []
 for _ in range(m):
     a, b, c = map(int, input().split())
@@ -26,12 +26,12 @@ for _ in range(m):
     heappush(q, (c, a-1, b-1))
 
 answer = 0
-while q and len(city) > 2:
+while q and l > 2:
     c, a, b = heappop(q)
     pa = find(a)
     pb = find(b)
     if pa != pb:
         union(pa, pb)
-        city.remove(max(pa, pb))
+        l -= 1
         answer += c
 print(answer)
