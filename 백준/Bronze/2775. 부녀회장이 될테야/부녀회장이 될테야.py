@@ -1,14 +1,11 @@
-# 테케 수
-t = int(input())
-for _ in range(t):
-    # 층
+T = int(input())
+for _ in range(T):
     k = int(input())
-    # 호수
     n = int(input())
-    floor = list(range(1, n+1))
-    for i in range(k):
-        tmp_floor = [1]
-        for j in range(1, n):
-            tmp_floor.append(tmp_floor[j-1]+floor[j])
-        floor = tmp_floor
-    print(floor[n-1])
+    dp = list(range(n+1))
+    for _ in range(k):
+        tmp = [0]
+        for i in range(1, n+1):
+            tmp.append(tmp[-1] + dp[i])
+        dp = tmp
+    print(dp[-1])
