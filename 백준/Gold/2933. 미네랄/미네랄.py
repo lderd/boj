@@ -2,6 +2,7 @@ r, c = map(int, input().split())
 cave = [list(input()) for _ in range(r)]
 n = int(input())
 hs = list(map(int, input().split()))
+d = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 for idx in range(n):
     h = hs[idx]
     bi = bj = -1
@@ -19,7 +20,6 @@ for idx in range(n):
                 break
     if bi == bj == -1: continue
     cave[bi][bj] = '.'
-    d = [(-1, 0), (1, 0), (0, -1), (0, 1)]
     checked = set()
     for bdi, bdj in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
         ci, cj = bi+bdi, bj+bdj
@@ -31,12 +31,12 @@ for idx in range(n):
             q = [(ci, cj)]
             while q:
                 i, j = q.pop()
+                if i == r - 1:
+                    down = False
                 for di, dj in d:
                     ni, nj = i+di, j+dj
                     if 0 <= ni < r and 0 <= nj < c and cave[ni][nj] == 'x' and (ni, nj) not in cluster:
                         q.append((ni, nj))
-                        if ni == r - 1:
-                            down = False
                         cluster.add((ni, nj))
                         if (ni == bi - 1 and nj == bj) or (ni == bi + 1 and nj == bj) or (ni == bi and nj == bj - 1) or (ni == bi and nj == bj + 1):
                             checked.add((ni, nj))
@@ -48,7 +48,7 @@ for idx in range(n):
                     new_cluster.add((i+1, j))
                     cave[i+1][j] = 'x'
                     cave[i][j] = '.'
-                    if i + 1 == r - 1 or ((i + 1, j) not in cluster and cave[i+2][j] == 'x'):
+                    if i + 1 >= r - 1 or ((i + 1, j) not in cluster and cave[i+2][j] == 'x'):
                         down = False
                         flag = True
                 cluster = new_cluster
