@@ -21,7 +21,7 @@ while q:
             heappush(q, (t + next_t, next_n))
 out_time = dist[n-1]
 if out_time == -1:
-    print(-1)
+    print(0)
     sys.exit()
 checked = set()
 answer = 0
